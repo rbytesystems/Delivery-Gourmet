@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo - UAITCHE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+
+<body>
+
+    <!-- Tela de Login -->
+    <div id="login-overlay" class="login-overlay">
+        <div class="login-box">
+            <i class="fas fa-user-shield fa-3x"></i>
+            <h2>Acesso Restrito</h2>
+            <p>Insira a senha mestra para gerenciar o cardápio</p>
+            <input type="password" id="admin-password" placeholder="Senha">
+            <button onclick="checkPassword()">Entrar no Painel</button>
+            <a href="index.html">Voltar para a loja</a>
+        </div>
+    </div>
+
+    <!-- Conteúdo do Painel (Escondido por padrão) -->
+    <div id="admin-content" class="admin-container" style="display: none;">
+        <header class="admin-header">
+            <div class="header-info">
+                <h1><i class="fas fa-tools"></i> Gestão de Cardápio</h1>
+                <p>Olá, Administrador</p>
+            </div>
+            <button class="btn-logout" onclick="logout()">Sair <i class="fas fa-sign-out-alt"></i></button>
+        </header>
+
+        <main class="admin-main">
+            <!-- Formulário de Cadastro -->
+            <section class="admin-card">
+                <h3><i class="fas fa-plus-circle"></i> Novo Produto</h3>
+                <form id="admin-form" class="admin-form">
+                    <input type="hidden" id="edit-id">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Nome do Item</label>
+                            <input type="text" id="p-name" placeholder="Ex: X-Tudo">
+                        </div>
+                        <div class="input-group">
+                            <label>Preço (R$)</label>
+                            <input type="number" step="0.01" id="p-price" placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Ingredientes / Descrição</label>
+                        <input type="text" id="p-desc" placeholder="Ex: Pão, carne, queijo...">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Foto do Produto</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="p-img-file" accept="image/*" onchange="previewImage(event)">
+                            <div id="image-preview-container" class="image-preview-container">
+                                <img id="img-upload-preview" src="" style="display: none;">
+                                <p id="preview-text">Nenhuma foto selecionada</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-save" onclick="saveProduct()">
+                        <i class="fas fa-check"></i> Salvar no Cardápio
+                    </button>
+                </form>
+            </section>
+
+            <!-- Tabela de Produtos -->
+            <section class="admin-card">
+                <h3><i class="fas fa-list"></i> Produtos Ativos</h3>
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Preview</th>
+                                <th>Produto</th>
+                                <th>Preço</th>
+                                <th style="text-align: right;">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body">
+                            <!-- Injetado via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+
+</html>
